@@ -1,5 +1,5 @@
-import { Button, FieldLabel, type Config } from "@measured/puck";
-import { Divider, Input, Select } from "antd";
+import {  FieldLabel, type Config } from "@measured/puck";
+import { Button, Divider, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
 type Props = {
@@ -157,7 +157,9 @@ export const config: Config<Props> = {
                   )}
 
                   {item?.box?.type === "button" && (
-                    <Button type="primary">{item?.box?.inputValue}</Button>
+                    <Button type="primary" className="primary-button">
+                      {item?.box?.inputValue}
+                    </Button>
                   )}
                 </div>
               );
