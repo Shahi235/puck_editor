@@ -3,93 +3,106 @@ import { Button, Divider, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
 type Props = {
+  HeadingBlock: { title: string };
   Form: { items: any[] };
 };
 
 export const config: Config<Props> = {
   components: {
+    HeadingBlock: {
+      fields: {
+        title: { type: "text" },
+      },
+      defaultProps: {
+        title: "Heading",
+      },
+      render: ({ title }) => (
+        <div style={{ padding: 64 }}>
+          <h1>{title}</h1>
+        </div>
+      ),
+    },
     Form: {
-        fields :{
-          items: {
-            type: "array",
-            getItemSummary: (item, i) => item.title || `Feature #${i}`,
-            defaultItemProps: {
-              Label: "Title",
-              box: {
-                type: "text",
-                inputValue: "",
-              },
+      fields: {
+        items: {
+          type: "array",
+          getItemSummary: (item, i) => item.title || `Feature #${i}`,
+          defaultItemProps: {
+            Label: "Title",
+            box: {
+              type: "text",
+              inputValue: "",
             },
-            arrayFields: {
-              Label: { type: "text" },
-              box: {
-                type: "custom",
-                label: "Choose type",
-                render: ({
-                  name,
-                  onChange,
-                  value = { type: "text", inputValue: "" },
-                  field,
-                }) => {
-                  console.log("value", value);
-                  return (
-                    <>
-                      <FieldLabel label={field.label}>
-                        <Select
-                          value={value.type}
-                          style={{ width: 120 }}
-                          onChange={(newType) => {
-                            onChange({ type: newType, inputValue: "" }); // Reset value when changing type
-                          }}
-                          options={[
-                            { label: "input", value: "text" },
-                            { label: "checkbox", value: "checkbox" },
-                            { label: "button", value: "button" },
-                            // { label: "radio", value: "radio" },
-                            { label: "textarea", value: "textarea" },
-                          ]}
-                        />
-                      </FieldLabel>
-                      <Divider dashed />
-                      {value.type === "text" && (
-                        <Input
-                          value={value.inputValue}
-                          onChange={(e) =>
-                            onChange({ ...value, inputValue: e.target.value })
-                          }
-                          placeholder="Enter text..."
-                        />
-                      )}
+          },
+          arrayFields: {
+            Label: { type: "text" },
+            box: {
+              type: "custom",
+              label: "Choose type",
+              render: ({
+                name,
+                onChange,
+                value = { type: "text", inputValue: "" },
+                field,
+              }) => {
+                console.log("value", value);
+                return (
+                  <>
+                    <FieldLabel label={field.label}>
+                      <Select
+                        value={value.type}
+                        style={{ width: 120 }}
+                        onChange={(newType) => {
+                          onChange({ type: newType, inputValue: "" }); // Reset value when changing type
+                        }}
+                        options={[
+                          { label: "input", value: "text" },
+                          { label: "checkbox", value: "checkbox" },
+                          { label: "button", value: "button" },
+                          // { label: "radio", value: "radio" },
+                          { label: "textarea", value: "textarea" },
+                        ]}
+                      />
+                    </FieldLabel>
+                    <Divider dashed />
+                    {value.type === "text" && (
+                      <Input
+                        value={value.inputValue}
+                        onChange={(e) =>
+                          onChange({ ...value, inputValue: e.target.value })
+                        }
+                        placeholder="Enter text..."
+                      />
+                    )}
 
-                      {value.type === "button" && (
-                        <Input
-                          value={value.inputValue}
-                          onChange={(e) =>
-                            onChange({ ...value, inputValue: e.target.value })
-                          }
-                          placeholder="Enter Button text..."
-                        />
-                      )}
+                    {value.type === "button" && (
+                      <Input
+                        value={value.inputValue}
+                        onChange={(e) =>
+                          onChange({ ...value, inputValue: e.target.value })
+                        }
+                        placeholder="Enter Button text..."
+                      />
+                    )}
 
-                      {value.type === "textarea" && (
-                        <TextArea
-                          rows={4}
-                          value={value.inputValue}
-                          onChange={(e) =>
-                            onChange({ ...value, inputValue: e.target.value })
-                          }
-                          placeholder="Enter description..."
-                          maxLength={600}
-                        />
-                      )}
-                    </>
-                  );
-                },
+                    {value.type === "textarea" && (
+                      <TextArea
+                        rows={4}
+                        value={value.inputValue}
+                        onChange={(e) =>
+                          onChange({ ...value, inputValue: e.target.value })
+                        }
+                        placeholder="Enter description..."
+                        maxLength={600}
+                      />
+                    )}
+                  </>
+                );
               },
             },
           },
         },
-      
+      },
 
       defaultProps: {
         items: [
